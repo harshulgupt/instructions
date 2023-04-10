@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect URLs with uppercase characters to lowercase
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^(.*)$ ${lc:$1} [R=301,L]
+
+# Rewrite all requests to lowercase filenames
+RewriteMap lc int:tolower
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^(.*)(\.html)$ ${lc:$1}$2 [L,R=301]
